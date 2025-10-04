@@ -2,31 +2,31 @@
 
 ## Overall Architecture
 
-\`\`\`
+```
 ┌─────────────────────────────────────────────────────────────┐
-│                         User Browser                         │
+│                         User Browser                        │
 └───────────────────────┬─────────────────────────────────────┘
                         │
                         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Next.js App Router                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   / (Home)   │  │   /import    │  │  /dashboard  │      │
-│  │              │  │              │  │              │      │
-│  │ Auth Buttons │  │ CSV Upload   │  │   Charts &   │      │
-│  │              │  │   + Table    │  │    Tables    │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-│                                                               │
+│                    Next.js App Router                       │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │   / (Home)   │  │   /import    │  │  /dashboard  │       │
+│  │              │  │              │  │              │       │
+│  │ Auth Buttons │  │ CSV Upload   │  │   Charts &   │       │
+│  │              │  │   + Table    │  │    Tables    │       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│                                                             │
 │  ┌─────────────────── API Routes ──────────────────────┐    │
 │  │ /api/auth/*      NextAuth.js Authentication         │    │
 │  │ /api/expenses    Bulk Insert Expenses               │    │
 │  │ /api/dashboard/* Dashboard Data Aggregations        │    │
-│  └──────────────────────────────────────────────────────┘    │
+│  └─────────────────────────────────────────────────────┘    │
 └───────────────────────┬─────────────────────────────────────┘
                         │
                         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      Server Layer                            │
+│                      Server Layer                           │
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │               NextAuth.js (v5)                       │   │
 │  │  • GoogleProvider                                    │   │
@@ -34,7 +34,7 @@
 │  │  • DiscordProvider                                   │   │
 │  │  • DrizzleAdapter                                    │   │
 │  └──────────────────────────────────────────────────────┘   │
-│                                                               │
+│                                                             │
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │             DrizzleORM (Database Layer)              │   │
 │  │  • Type-safe queries                                 │   │
@@ -44,17 +44,17 @@
 └───────────────────────┬─────────────────────────────────────┘
                         │
                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    PostgreSQL Database                       │
+┌───────────────────────────────────────────────────────────┐
+│                    PostgreSQL Database                    │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
 │  │  users   │  │ accounts │  │ sessions │  │ expenses │   │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-└─────────────────────────────────────────────────────────────┘
-\`\`\`
+└───────────────────────────────────────────────────────────┘
+```
 
 ## User Flow: Import Expenses
 
-\`\`\`
+```
 1. User Authentication
    ┌─────────────┐
    │ Homepage    │
@@ -137,11 +137,11 @@
    │ Redirect to      │
    │ /dashboard       │
    └──────────────────┘
-\`\`\`
+```
 
 ## User Flow: View Dashboard
 
-\`\`\`
+```
    ┌──────────────────┐
    │ /dashboard Page  │
    │ (Protected)      │
@@ -185,8 +185,8 @@
                     └────────┬─────────┘
                              │
                              ▼
-   ┌──────────────────────────────────────────┐
-   │ Render Dashboard Components              │
+   ┌─────────────────────────────────────────┐
+   │ Render Dashboard Components             │
    │ ┌──────────────┐  ┌──────────────┐      │
    │ │ Total Card   │  │ Pie Chart    │      │
    │ │ R$ 5.432,10  │  │ (Echarts)    │      │
@@ -199,12 +199,12 @@
    │ │ Future Expenses Table            │    │
    │ │ Item | Date | Amount | Person    │    │
    │ └──────────────────────────────────┘    │
-   └──────────────────────────────────────────┘
-\`\`\`
+   └─────────────────────────────────────────┘
+```
 
 ## Database Schema Relationships
 
-\`\`\`
+```
 ┌────────────────┐
 │     users      │
 │ ─────────────  │
@@ -217,35 +217,35 @@
                             │
                             │ userId (FK)
                             │
-┌────────────────┐          │
-│    expenses    │          │
-│ ─────────────  │          │
-│ id (PK)        │          │
-│ userId (FK)    │──────────┘
-│ item           │
-│ amount         │
-│ purchaseDate   │
-│ responsibleParty
-│ currentInstallment
-│ totalInstallments
-│ isFixed        │
-│ bank           │
-│ createdAt      │
-└────────────────┘
+┌───────────────────┐       │
+│    expenses       │       │
+│ ─────────────     │       │
+│ id (PK)           │       │
+│ userId (FK)       │───────┘
+│ item              │
+│ amount            │
+│ purchaseDate      │
+│ responsibleParty  │
+│ currentInstallment│
+│ totalInstallments │
+│ isFixed           │
+│ bank              │
+│ createdAt         │
+└───────────────────┘
 
 Indexes:
 - expense_user_id_idx on userId
 - expense_purchase_date_idx on purchaseDate
-\`\`\`
+```
 
 ## CSV Transformation Flow
 
-\`\`\`
+```
 Nubank CSV:
 ┌─────────────────────────────────────┐
 │ date,title,amount                   │
 │ 2025-01-15,Netflix,49.90            │
-│ 2025-01-20,Compra Parcela 2/3,100  │
+│ 2025-01-20,Compra Parcela 2/3,100   │
 └─────────────────────────────────────┘
               │
               ▼
@@ -254,7 +254,7 @@ Nubank CSV:
 │ - Extract date → purchaseDate       │
 │ - Extract title → item              │
 │ - Extract amount → amount           │
-│ - Regex match "Parcela X/Y"        │
+│ - Regex match "Parcela X/Y"         │
 │   → currentInstallment: X           │
 │   → totalInstallments: Y            │
 │ - Set bank: "Nubank"                │
@@ -277,8 +277,8 @@ Nubank CSV:
 
 Inter Bank CSV:
 ┌──────────────────────────────────────────┐
-│ Data,Lançamento,Categoria,Tipo,Valor    │
-│ 15/01/2025,Amazon,Compras,Parcela 1/6,  │
+│ Data,Lançamento,Categoria,Tipo,Valor     │
+│ 15/01/2025,Amazon,Compras,Parcela 1/6,   │
 │ R$ 200,00                                │
 └──────────────────────────────────────────┘
               │
@@ -292,7 +292,7 @@ Inter Bank CSV:
 │   • Trim whitespace                      │
 │   • Replace "," with "."                 │
 │   • parseFloat()                         │
-│ - Regex match "Parcela X/Y" in Tipo     │
+│ - Regex match "Parcela X/Y" in Tipo      │
 │ - Set bank: "Inter"                      │
 └──────────────────────────────────────────┘
               │
@@ -310,11 +310,11 @@ Inter Bank CSV:
 │   responsibleParty: null                 │
 │ }                                        │
 └──────────────────────────────────────────┘
-\`\`\`
+```
 
 ## Dashboard Data Flow
 
-\`\`\`
+```
 Summary (Total Current Month):
 ┌──────────────────────────────────────┐
 │ SQL: SELECT SUM(amount)              │
@@ -346,7 +346,7 @@ Expenses by Person:
 Monthly Trend (Last 6 Months):
 ┌──────────────────────────────────────┐
 │ SQL: SELECT TO_CHAR(purchaseDate,    │
-│                    'YYYY-MM'),        │
+│                    'YYYY-MM'),       │
 │             SUM(amount)              │
 │      FROM expenses                   │
 │      WHERE userId = ?                │
@@ -402,7 +402,7 @@ Future Expenses:
          totalInstallments: 12
        }
      ]
-\`\`\`
+```
 
 ---
 

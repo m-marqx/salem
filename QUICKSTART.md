@@ -9,23 +9,23 @@
 
 ### Step 1: Environment Variables (2 minutes)
 1. Copy the example file:
-   \`\`\`bash
+   ```bash
    cp .env.local.example .env.local
-   \`\`\`
+   ```
 
 2. Edit `.env.local` and add your database URL:
-   \`\`\`env
+   ```env
    DATABASE_URL="postgresql://user:password@localhost:5432/finance_db"
-   \`\`\`
+   ```
 
 3. Generate AUTH_SECRET:
-   \`\`\`bash
+   ```bash
    # On Windows PowerShell:
    [Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))
    
    # On Linux/Mac:
    openssl rand -base64 32
-   \`\`\`
+   ```
 
 4. Add at least one OAuth provider (Google is easiest):
    - Visit: https://console.cloud.google.com/
@@ -35,14 +35,14 @@
    - Copy Client ID and Secret to `.env.local`
 
 ### Step 2: Database Setup (1 minute)
-\`\`\`bash
+```bash
 pnpm db:push
-\`\`\`
+```
 
 ### Step 3: Run Application (1 minute)
-\`\`\`bash
+```bash
 pnpm dev
-\`\`\`
+```
 
 Visit: http://localhost:3000
 
@@ -57,21 +57,21 @@ Visit: http://localhost:3000
 
 ### Nubank Test File
 Create `test-nubank.csv`:
-\`\`\`csv
+```csv
 date,title,amount
 2025-01-15,Netflix Subscription,49.90
 2025-01-20,Amazon Purchase Parcela 1/3,100.00
 2025-01-20,Grocery Store,250.75
-\`\`\`
+```
 
 ### Inter Bank Test File
 Create `test-inter.csv`:
-\`\`\`csv
+```csv
 Data,Lançamento,Categoria,Tipo,Valor
 15/01/2025,Spotify,Entretenimento,À vista,R$ 19,90
 20/01/2025,Notebook Dell,Eletrônicos,Parcela 1/10,R$ 500,00
 25/01/2025,Supermercado,Alimentação,À vista,R$ 320,50
-\`\`\`
+```
 
 ## Troubleshooting
 
@@ -95,7 +95,7 @@ Data,Lançamento,Categoria,Tipo,Valor
 
 ## Common Commands
 
-\`\`\`bash
+```bash
 # Development
 pnpm dev              # Start dev server
 pnpm build            # Build for production
@@ -109,7 +109,7 @@ pnpm db:studio        # Open visual database editor
 pnpm lint             # Check for issues
 pnpm typecheck        # TypeScript validation
 pnpm format:write     # Format code
-\`\`\`
+```
 
 ## Next Steps
 

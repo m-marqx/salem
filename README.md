@@ -54,19 +54,19 @@ The application uses the following main tables:
 ### Installation
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone <your-repo-url>
 cd salem
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 pnpm install
-\`\`\`
+```
 
-3. Set up environment variables. Create a \`.env.local\` file in the root directory:
+3. Set up environment variables. Create a `.env.local` file in the root directory:
 
-\`\`\`env
+```env
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/finance_db"
 
@@ -85,7 +85,7 @@ AUTH_GOOGLE_SECRET="your-google-client-secret"
 # GitHub OAuth
 AUTH_GITHUB_ID="your-github-client-id"
 AUTH_GITHUB_SECRET="your-github-client-secret"
-\`\`\`
+```
 
 ### Setting Up OAuth Providers
 
@@ -94,46 +94,46 @@ AUTH_GITHUB_SECRET="your-github-client-secret"
 2. Create a new project or select existing one
 3. Enable Google+ API
 4. Go to Credentials → Create Credentials → OAuth 2.0 Client ID
-5. Add authorized redirect URI: \`http://localhost:3000/api/auth/callback/google\`
-6. Copy Client ID and Client Secret to \`.env.local\`
+5. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+6. Copy Client ID and Client Secret to `.env.local`
 
 #### GitHub OAuth
 1. Go to [GitHub Settings → Developer settings → OAuth Apps](https://github.com/settings/developers)
 2. Click "New OAuth App"
-3. Set Authorization callback URL: \`http://localhost:3000/api/auth/callback/github\`
-4. Copy Client ID and Client Secret to \`.env.local\`
+3. Set Authorization callback URL: `http://localhost:3000/api/auth/callback/github`
+4. Copy Client ID and Client Secret to `.env.local`
 
 #### Discord OAuth (Optional)
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create a new application
 3. Go to OAuth2 section
-4. Add redirect: \`http://localhost:3000/api/auth/callback/discord\`
-5. Copy Client ID and Client Secret to \`.env.local\`
+4. Add redirect: `http://localhost:3000/api/auth/callback/discord`
+5. Copy Client ID and Client Secret to `.env.local`
 
 ### Database Setup
 
 1. Push the schema to your database:
-\`\`\`bash
+```bash
 pnpm db:push
-\`\`\`
+```
 
 2. (Optional) Open Drizzle Studio to view your database:
-\`\`\`bash
+```bash
 pnpm db:studio
-\`\`\`
+```
 
 ### Run the Application
 
 Development mode:
-\`\`\`bash
+```bash
 pnpm dev
-\`\`\`
+```
 
 Production build:
-\`\`\`bash
+```bash
 pnpm build
 pnpm start
-\`\`\`
+```
 
 Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
@@ -147,31 +147,31 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
 #### Nubank CSV Format
 Your Nubank CSV should have the following columns:
-- \`date\`: Purchase date (YYYY-MM-DD)
-- \`title\`: Description (may include "Parcela X/Y" for installments)
-- \`amount\`: Amount as a decimal number
+- `date`: Purchase date (YYYY-MM-DD)
+- `title`: Description (may include "Parcela X/Y" for installments)
+- `amount`: Amount as a decimal number
 
 Example:
-\`\`\`csv
+```csv
 date,title,amount
 2025-01-15,Netflix,49.90
 2025-01-20,Compra Parcela 1/3,100.00
-\`\`\`
+```
 
 #### Inter Bank CSV Format
 Your Inter Bank CSV should have the following columns:
-- \`Data\`: Purchase date
-- \`Lançamento\`: Description
-- \`Categoria\`: Category (optional)
-- \`Tipo\`: Type (may include "Parcela X/Y" for installments)
-- \`Valor\`: Amount with "R$" prefix and comma decimal separator
+- `Data`: Purchase date
+- `Lançamento`: Description
+- `Categoria`: Category (optional)
+- `Tipo`: Type (may include "Parcela X/Y" for installments)
+- `Valor`: Amount with "R$" prefix and comma decimal separator
 
 Example:
-\`\`\`csv
+```csv
 Data,Lançamento,Categoria,Tipo,Valor
 15/01/2025,Amazon,Compras,À vista,R$ 150,00
 20/01/2025,Magazine Luiza,Eletrônicos,Parcela 1/6,R$ 200,00
-\`\`\`
+```
 
 #### Import Process
 1. Navigate to `/import` page
@@ -195,16 +195,16 @@ The dashboard displays:
 
 ## API Routes
 
-- \`POST /api/expenses\`: Save bulk expenses (protected)
-- \`GET /api/dashboard/summary\`: Get current month total
-- \`GET /api/dashboard/expenses-by-person\`: Get expenses grouped by person
-- \`GET /api/dashboard/monthly-trend\`: Get last 6 months data
-- \`GET /api/dashboard/fixed-vs-variable\`: Get fixed vs variable breakdown
-- \`GET /api/dashboard/future-expenses\`: Get pending installments
+- `POST /api/expenses`: Save bulk expenses (protected)
+- `GET /api/dashboard/summary`: Get current month total
+- `GET /api/dashboard/expenses-by-person`: Get expenses grouped by person
+- `GET /api/dashboard/monthly-trend`: Get last 6 months data
+- `GET /api/dashboard/fixed-vs-variable`: Get fixed vs variable breakdown
+- `GET /api/dashboard/future-expenses`: Get pending installments
 
 ## Project Structure
 
-\`\`\`
+```
 src/
 ├── app/
 │   ├── api/
@@ -222,11 +222,11 @@ src/
 │   └── db/                        # Database schema and client
 └── styles/
     └── globals.css                # Global styles
-\`\`\`
+```
 
 ## Development Commands
 
-\`\`\`bash
+```bash
 # Development
 pnpm dev                # Start dev server
 pnpm build              # Build for production
@@ -244,19 +244,19 @@ pnpm lint:fix           # Fix ESLint issues
 pnpm format:check       # Check formatting
 pnpm format:write       # Format code
 pnpm typecheck          # Run TypeScript checks
-\`\`\`
+```
 
 ## Troubleshooting
 
 ### Database Connection Issues
-- Verify your \`DATABASE_URL\` in \`.env.local\`
+- Verify your `DATABASE_URL` in `.env.local`
 - Ensure PostgreSQL is running
 - Check that the database exists
 
 ### OAuth Authentication Fails
 - Verify all OAuth credentials are correct
 - Ensure redirect URIs match exactly (including http/https)
-- Check that \`AUTH_SECRET\` is set
+- Check that `AUTH_SECRET` is set
 
 ### CSV Import Not Working
 - Verify CSV format matches Nubank or Inter Bank specification
