@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { expenses } from "@/server/db/schema";
-import { eq, and, sql } from "drizzle-orm";
+import { eq, gte, and, sql } from "drizzle-orm";
+
+// Force API route to use Node.js runtime for database compatibility
+export const runtime = "nodejs";
 
 export async function GET() {
   try {

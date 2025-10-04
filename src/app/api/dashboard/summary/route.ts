@@ -4,6 +4,9 @@ import { db } from "@/server/db";
 import { expenses } from "@/server/db/schema";
 import { eq, and, gte, lte, sql } from "drizzle-orm";
 
+// Force API route to use Node.js runtime for database compatibility
+export const runtime = "nodejs";
+
 export async function GET() {
   try {
     const session = await auth();

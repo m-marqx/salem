@@ -3,6 +3,9 @@ import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { expenses } from "@/server/db/schema";
 
+// Force API route to use Node.js runtime for database compatibility
+export const runtime = "nodejs";
+
 interface ExpenseInput {
   item: string;
   amount: number;
