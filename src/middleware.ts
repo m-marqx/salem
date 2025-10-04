@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
-import { baseAuthConfig } from "@/server/auth/config";
+import { middlewareAuthConfig } from "@/server/auth/middleware-config";
 
-// Use base config without database adapter for Edge Runtime compatibility
-const { auth } = NextAuth(baseAuthConfig);
+// Use middleware-specific config without any database imports for Edge Runtime compatibility
+const { auth } = NextAuth(middlewareAuthConfig);
 
 export { auth as middleware };
 
